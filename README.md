@@ -18,27 +18,31 @@
 - $c_{ij} \in [1, 100]$
 
 ## 入力形式
-```
-N K Q
-d_{1} d_{2} \ldots d_{N}
-c_{11} c_{12} \ldots c_{1N}
-c_{21} c_{22} \ldots c_{2N}
-...
-c_{N1} c_{N2} \ldots c_{NN}
-```
+$$
+\begin{align*}
+&N \quad K \quad Q \\
+&d_{1} \quad d_{2} \quad \ldots \quad d_{N} \\
+&c_{11} \quad c_{12} \quad \ldots \quad c_{1N} \\
+&c_{21} \quad c_{22} \quad \ldots \quad c_{2N} \\
+&\vdots \\
+&c_{N1} \quad c_{N2} \quad \ldots \quad c_{NN}
+\end{align*}
+$$
 
 ## 出力形式
 $i$番目の配送車の経路長を $L_{i}$ とすると、以下のような形式で出力する。
-```
-L_{1}
-v_{11} v_{12} ... v_{1L_{1}}
-L_{2}
-v_{21} v_{22} ... v_{2L_{2}}
-...
-L_{K}
-v_{K1} v_{K2} ... v_{KL_{K}}
-```
-ただし、$v_{ij}$ は配送車 $i$ が $j$ 番目に訪れる頂点を表す。
+
+$$
+\begin{align*}
+&L_{1} \\
+&v_{11} \quad v_{12} \quad \ldots \quad v_{1L_{1}} \\
+&L_{2} \\
+&v_{21} \quad v_{22} \quad \ldots \quad v_{2L_{2}} \\
+&\vdots \\
+&L_{K} \\
+&v_{K1} \quad v_{K2} \quad \ldots \quad v_{KL_{K}}
+\end{align*}
+$$
 
 ## 入力の生成方法
 $N, K, Q$ は定数。
@@ -49,9 +53,12 @@ $c_{ij}$ については、以下のように生成する。
 
 まず、2次元平面上から $0 < x < 10000, 0 < y < 10000$ の範囲で $N+1$ 個の格子点を生成する。このとき、x座標とy座標は独立に $(1, 10000)$ の一様乱数で生成する。ただし、同一の座標を持つ格子点が選ばれた場合は再度生成し直す。
 
-次に、$0 \leq i, j \leq N$ を満たす全ての $i, j$ について、$r_{ij}$ を $[0.8, 1.2]$ の一様乱数で生成し、$c_{ij}$ を以下のように定義する。
-```
-c_{ij} = round(\sqrt{(x_{i} - x_{j})^{2} + (y_{i} - y_{j})^{2}} \times r_{ij}) \quad (i \neq j)
-c_{ij} = 0 \quad (i = j)
-```
-より具体的な生成方法については、[generator.py](generator.py) を参照のこと。
+次に、$0 \leq i, j \leq N$ を満たす全ての $i, j$ について、$r_{ij}$ を $[70, 100]$ の一様乱数で生成し、$c_{ij}$ を以下のように定義する。
+$$
+\begin{cases}
+c_{ij} = \left\lfloor \sqrt{\frac{(x_{i} - x_{j})^{2} + (y_{i} - y_{j})^{2}}{20000}} \times r_{ij} \right\rfloor & (i \neq j) \\
+c_{ij} = 0 & (i = j)
+\end{cases}
+$$
+
+より具体的な生成方法については、[generator.py](/testcase/generator.py) を参照のこと。
