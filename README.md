@@ -56,7 +56,7 @@ $c_{ij}$ については、以下のように生成する。
 次に、$0 \leq i, j \leq N$ を満たす全ての $i, j$ について、$r_{ij}$ を $[70, 100]$ の一様乱数で生成し、$c_{ij}$ を以下のように定義する。
 $$
 \begin{cases}
-c_{ij} = \left\lfloor \sqrt{\frac{(x_{i} - x_{j})^{2} + (y_{i} - y_{j})^{2}}{20000}} \times r_{ij} \right\rfloor & (i \neq j) \\
+c_{ij} = \left\lfloor \sqrt{\frac{(x_{i} - x_{j})^{2} + (y_{i} - y_{j})^{2}}{200000000}} \times r_{ij} \right\rfloor & (i \neq j) \\
 c_{ij} = 0 & (i = j)
 \end{cases}
 $$
