@@ -1,7 +1,7 @@
 import random
 import math
 
-def generate_input(N, K, Q, seed, x_range=(1, 10000), y_range=(1, 10000), d_range=(1, 10), r_range=(70, 100)):
+def generate_input(N, K, Q, seed, x_range=(0, 10000), y_range=(0, 10000), d_range=(1, 10), r_range=(70, 100)):
     random.seed(seed)
     # 配送センターと顧客の座標を生成
     coordinates = [(random.randint(*x_range), random.randint(*y_range)) for _ in range(N+1)]
