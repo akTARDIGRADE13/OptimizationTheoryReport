@@ -18,7 +18,7 @@ def generate_input(N, K, Q, seed, x_range=(0, 10000), y_range=(0, 10000), d_rang
             if i != j:
                 x1, y1 = coordinates[i]
                 x2, y2 = coordinates[j]
-                distance = math.sqrt(((x1 - x2) ** 2 + (y1 - y2) ** 2) / 2)
+                distance = math.sqrt(((x1 - x2) ** 2 + (y1 - y2) ** 2) / 200000000)
                 r = random.uniform(*r_range)
                 cost_matrix[i][j] = math.floor(distance * r)
     
