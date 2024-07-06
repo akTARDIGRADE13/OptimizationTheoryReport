@@ -1,7 +1,7 @@
 import random
 import math
 
-def generate_input(N, K, Q, seed, x_range=(1, 10000), y_range=(1, 10000), d_range=(1, 10), r_range=(70, 100)):
+def generate_input(N, K, Q, seed, x_range=(0, 10000), y_range=(0, 10000), d_range=(1, 10), r_range=(70, 100)):
     random.seed(seed)
     # 配送センターと顧客の座標を生成
     coordinates = [(random.randint(*x_range), random.randint(*y_range)) for _ in range(N+1)]
@@ -18,7 +18,7 @@ def generate_input(N, K, Q, seed, x_range=(1, 10000), y_range=(1, 10000), d_rang
             if i != j:
                 x1, y1 = coordinates[i]
                 x2, y2 = coordinates[j]
-                distance = math.sqrt(((x1 - x2) ** 2 + (y1 - y2) ** 2) / 200000000)
+                distance = math.sqrt(((x1 - x2) ** 2 + (y1 - y2) ** 2) / 2)
                 r = random.uniform(*r_range)
                 cost_matrix[i][j] = math.floor(distance * r)
     
