@@ -3,7 +3,6 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: ['main']
-
   workflow_dispatch:
 
 permissions:
@@ -31,15 +30,17 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
+        working-directory: visualizer
         run: npm install
       - name: Build
+        working-directory: visualizer
         run: npm ci && npm run build && cp dist/index.html dist/404.html
         env:
-          PUBLIC_URL: /study-room
+          PUBLIC_URL: /OptimizationTheoryReport
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: './dist'
+          path: './visualizer/dist'
 
   deploy:
     environment:
