@@ -12,7 +12,7 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import CodeBlock from './components/CodeBlock'; // コードブロックのコンポーネント
 import MdImage from './components/MdImage'; // 画像のコンポーネント
-import { useMdContent } from 'HUIT_SHINKAN2024/hooks/useMdContent';
+import { useMdContent } from 'hooks/useMdContent';
 import styles from './MarkdownContent.module.css';
 import 'katex/dist/katex.min.css';
 
