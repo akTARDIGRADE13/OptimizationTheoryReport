@@ -1,38 +1,48 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { FC, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { FC } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import Home from 'routes/Home/Home';
+import NotFound from 'routes/NotFound/NotFound';
+//import { VisualizerInfoProvider } from 'components/BaseVisualizer/context/VisualizerInfoProvider';
 import './App.css';
 
-const title = import.meta.env.VITE_APP_TITLE;
-console.dir(import.meta.env);
-
 const App: FC = () => {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <h2>{title}</h2>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Helmet>
+        <title>Visualizer</title>
+        <meta name="description" content="Visualizer" />
+        <meta property="og:title" content="Visualizer" />
+        <meta property="og:description" content="Visualizer" />
+        <meta
+          property="og:image"
+          content="https://aktardigrade13.github.io/OptimizationTheoryReport/banner-meta.jpg"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="670" />
+        <meta property="og:image:type" content="image/jpg" />
+        <meta property="og:image:alt" content="バナー" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@akTARDIGRADE13"></meta>
+        <meta
+          property="og:url"
+          content="https://aktardigrade13.github.io/OptimizationTheoryReport/"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="ja_JP" />
+      </Helmet>
+      <Routes>
+        <Route
+          path="/OptimizationTheoryReport/"
+          element={
+            //<VisualizerInfoProvider>
+            <Home />
+            //</VisualizerInfoProvider>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </>
   );
 };
