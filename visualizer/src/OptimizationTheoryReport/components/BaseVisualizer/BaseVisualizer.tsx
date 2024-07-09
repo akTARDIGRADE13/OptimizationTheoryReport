@@ -18,12 +18,16 @@ interface BaseVisualizerProps {
 const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
   children,
 }: BaseVisualizerProps) => {
+  const [changeSolution, setChangeSolution] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(100); // 再生速度（フレーム/秒）
+  const [maxSolution, setMaxSolution] = useState(0);
   const [maxFrame, setMaxFrame] = useState(0);
   const {
     mode,
     setMode,
+    currentSolution,
+    setCurrentSolution,
     currentFrame,
     setCurrentFrame,
     fileContent,
@@ -37,10 +41,14 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
         setFileContent('');
         setMaxFrame(0);
         setCurrentFrame(0);
+        setMaxSolution(0);
+        setCurrentSolution(0);
       } else {
         setFileContent(file);
         setMaxFrame(file.length);
         setCurrentFrame(file.length);
+        setMaxSolution(file.length);
+        setCurrentSolution(0);
       }
     },
     [setFileContent, setMaxFrame, setCurrentFrame],
@@ -53,6 +61,32 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
       textarea.value = fileContent;
     }
   }, [fileContent]);
+
+  // ソリューション変更処理
+  const updateSolution = useCallback(
+    (newSolution: number) => {
+      setCurrentSolution(() => {
+        return Math.max(0, Math.min(maxSolution, newSolution));
+      });
+    },
+    [maxSolution, setCurrentSolution],
+  );
+
+  // ソリューションの自動再生処理
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+
+    if (changeSolution) {
+      setIsPlaying(false);
+      interval = setInterval(() => {
+        updateSolution(currentSolution + 1);
+      }, 1000 / speed);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [changeSolution, currentSolution, speed, updateSolution]);
 
   // フレーム更新処理
   const updateFrame = useCallback(
@@ -96,6 +130,13 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
         </div>
         <div className={styles['sliders-container']}>
           <Slider
+            label="Solution"
+            min={0}
+            max={maxFrame}
+            value={currentSolution}
+            onChange={setCurrentSolution}
+          />
+          <Slider
             label="Frame"
             min={0}
             max={maxFrame}
@@ -109,10 +150,17 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
             value={speed}
             onChange={setSpeed}
           />
-          <PlayButton
-            isPlaying={isPlaying}
-            onClick={() => setIsPlaying(!isPlaying)}
-          />
+          <div className={styles['play-button-container']}>
+            <PlayButton
+              isPlaying={changeSolution}
+              onClick={() => setChangeSolution(!changeSolution)}
+              type={2}
+            />
+            <PlayButton
+              isPlaying={isPlaying}
+              onClick={() => setIsPlaying(!isPlaying)}
+            />
+          </div>
         </div>
         <div className={styles['sliders-container']}>
           <FileInput onFileChange={(file) => setFileContent(file ?? '')} />

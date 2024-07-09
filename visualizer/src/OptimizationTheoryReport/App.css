@@ -9,6 +9,8 @@
   --light-accent: #4caaed;
   --accent: #0d87e0;
   --dark-accent: #005580;
+  --accent2: #de941d;
+  --dark-accent2: #b36b00;
 
   /* タイポグラフィ（フォントサイズ） */
   --small-body: clamp(0.8rem, 0.7rem + 0.2vw, 1.0rem);

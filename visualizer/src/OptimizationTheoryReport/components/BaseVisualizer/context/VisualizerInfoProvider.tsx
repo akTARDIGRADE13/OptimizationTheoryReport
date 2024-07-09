@@ -7,6 +7,8 @@ export interface VisualizerInfoContextProps {
   setInputContent: Dispatch<SetStateAction<string>>;
   mode: string;
   setMode: Dispatch<SetStateAction<string>>;
+  currentSolution: number;
+  setCurrentSolution: Dispatch<SetStateAction<number>>;
   currentFrame: number;
   setCurrentFrame: Dispatch<SetStateAction<number>>;
   fileContent: string;
@@ -18,6 +20,8 @@ export const VisualizerInfoContext = createContext<VisualizerInfoContextProps>({
   setInputContent: () => {},
   mode: 'normal',
   setMode: () => {},
+  currentSolution: 0,
+  setCurrentSolution: () => {},
   currentFrame: 0,
   setCurrentFrame: () => {},
   fileContent: '',
@@ -29,6 +33,7 @@ export const VisualizerInfoProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [inputContent, setInputContent] = useState<string>('');
   const [mode, setMode] = useState<string>('normal');
+  const [currentSolution, setCurrentSolution] = useState<number>(0);
   const [currentFrame, setCurrentFrame] = useState<number>(0);
   const [fileContent, setFileContent] = useState<string>('');
 
@@ -39,6 +44,8 @@ export const VisualizerInfoProvider: React.FC<{ children: ReactNode }> = ({
         setInputContent,
         mode,
         setMode,
+        currentSolution,
+        setCurrentSolution,
         currentFrame,
         setCurrentFrame,
         fileContent,
