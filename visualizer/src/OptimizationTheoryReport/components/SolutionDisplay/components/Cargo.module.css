@@ -1,0 +1,27 @@
+.cargo-container {
+    height: 100%;
+    padding: 16px;
+    margin: var(--space-xs);
+    background-color: var(--gray-10);
+    border: 1px solid var(--gray-25);
+    border-radius: 8px;
+}
+
+.heading {
+    margin-bottom: var(--space-xs);
+    text-align: center;
+}
+  
+.cargo-list {
+    padding: 0;
+    list-style-type: none;
+}
+
+.cargo-item {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cargo-item:last-child {
+    border-bottom: none;
+}

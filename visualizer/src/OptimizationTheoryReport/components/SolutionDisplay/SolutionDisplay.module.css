@@ -1,0 +1,34 @@
+.container {
+    padding: var(--space-xs);
+    margin: auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.score {
+    margin-bottom: var(--space-xs);
+    font-size: var(--heading1);
+    font-weight: bold;
+    text-align: center;
+}
+
+.flex-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.cargo-container {
+    padding: 16px;
+    background-color: var(--gray-10);
+    border: 1px solid var(--gray-25);
+    border-radius: 8px;
+}
+
+.grid-container {
+    padding: 16px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}

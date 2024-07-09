@@ -1,0 +1,36 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(2em, 1fr));
+    gap: 1px;
+}
+
+.grid-row {
+    display: contents; /* Maintain the grid structure without adding an extra wrapper */
+}
+
+.grid-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2em;
+    height: 1.8em;
+    font-size: 0.9em;
+    border: 1px solid black;
+}
+
+.fluorescent-green {
+    background-color: #39ff14;
+}
+
+.red {
+    background-color: rgb(254 116 31);
+}
+
+.gray {
+    background-color: gray;
+}
+
+.blue {
+    color: white; /* Ensure text is readable on blue background */
+    background-color: rgb(21 96 235);
+}
