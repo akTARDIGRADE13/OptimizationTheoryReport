@@ -3,8 +3,8 @@ import { type ReactNode, type Dispatch, type SetStateAction } from 'react';
 import { createContext, useState } from 'react';
 
 export interface VisualizerInfoContextProps {
-  testCase: number;
-  setTestCase: Dispatch<SetStateAction<number>>;
+  inputContent: string;
+  setInputContent: Dispatch<SetStateAction<string>>;
   mode: string;
   setMode: Dispatch<SetStateAction<string>>;
   currentFrame: number;
@@ -14,8 +14,8 @@ export interface VisualizerInfoContextProps {
 }
 
 export const VisualizerInfoContext = createContext<VisualizerInfoContextProps>({
-  testCase: 1,
-  setTestCase: () => {},
+  inputContent: '',
+  setInputContent: () => {},
   mode: 'normal',
   setMode: () => {},
   currentFrame: 0,
@@ -27,7 +27,7 @@ export const VisualizerInfoContext = createContext<VisualizerInfoContextProps>({
 export const VisualizerInfoProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [testCase, setTestCase] = useState<number>(1);
+  const [inputContent, setInputContent] = useState<string>('');
   const [mode, setMode] = useState<string>('normal');
   const [currentFrame, setCurrentFrame] = useState<number>(0);
   const [fileContent, setFileContent] = useState<string>('');
@@ -35,8 +35,8 @@ export const VisualizerInfoProvider: React.FC<{ children: ReactNode }> = ({
   return (
     <VisualizerInfoContext.Provider
       value={{
-        testCase,
-        setTestCase,
+        inputContent,
+        setInputContent,
         mode,
         setMode,
         currentFrame,

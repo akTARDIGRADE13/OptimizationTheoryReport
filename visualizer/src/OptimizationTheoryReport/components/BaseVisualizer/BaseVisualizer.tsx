@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ChangeEvent } from 'react';
 import Container from 'components/Container/Container';
+import FileInput from './components/FileInput';
 import MarkdownContent from 'components/MarkdownContent/MarkdownContent';
 import PlayButton from './components/PlayButton';
 import SelectBox from './components/SelectBox';
@@ -21,8 +22,6 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
   const [speed, setSpeed] = useState(100); // 再生速度（フレーム/秒）
   const [maxFrame, setMaxFrame] = useState(0);
   const {
-    testCase,
-    setTestCase,
     mode,
     setMode,
     currentFrame,
@@ -46,48 +45,6 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
     },
     [setFileContent, setMaxFrame, setCurrentFrame],
   );
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (mode === 'manual') {
-        const { key } = event;
-        const validKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-        if (validKeys.includes(key)) {
-          event.preventDefault();
-          let newContent = fileContent;
-          const lastChar = newContent.charAt(newContent.length - 1);
-          const newPosition = {
-            ArrowUp: 'U',
-            ArrowDown: 'D',
-            ArrowLeft: 'L',
-            ArrowRight: 'R',
-          }[key];
-
-          // 指定された条件に応じて末尾を削除する
-          if (
-            (lastChar === 'L' && key === 'ArrowRight') ||
-            (lastChar === 'R' && key === 'ArrowLeft') ||
-            (lastChar === 'U' && key === 'ArrowDown') ||
-            (lastChar === 'D' && key === 'ArrowUp')
-          ) {
-            newContent = newContent.slice(0, -1);
-          } else {
-            newContent += newPosition;
-          }
-
-          // 更新後の値をセット
-          setFileContent(newContent);
-          setMaxFrame(newContent.length);
-          setCurrentFrame(newContent.length);
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [fileContent, mode, setFileContent, setMaxFrame, setCurrentFrame]);
 
   // useEffectを使ってfileContentの変更を監視し、textareaに反映
   useEffect(() => {
@@ -134,7 +91,6 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
             className={styles.textbox}
             placeholder="Enter text here..."
             onChange={(e) => handleFileChange(e)}
-            // textareaの値をfileContentにバインド
             value={fileContent}
           />
         </div>
@@ -142,7 +98,7 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
           <Slider
             label="Frame"
             min={0}
-            max={maxFrame} // ここはファイル読み込んで値を決定
+            max={maxFrame}
             value={currentFrame}
             onChange={setCurrentFrame}
           />
@@ -159,17 +115,10 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
           />
         </div>
         <div className={styles['sliders-container']}>
-          <SelectBox
-            label="testcase"
-            options={Array.from({ length: 3 }, (_, index) => index + 1)} // 例えば、適切な範囲を指定
-            value={testCase}
-            onChange={(value) => {
-              setTestCase(value as number);
-            }}
-          />
+          <FileInput onFileChange={(file) => setFileContent(file ?? '')} />
           <SelectBox
             label="mode"
-            options={['normal', 'color1', 'color2', 'manual']} // 例えば、適切な範囲を指定
+            options={['normal', 'color']}
             value={mode}
             onChange={(value) => {
               setMode(value as string);

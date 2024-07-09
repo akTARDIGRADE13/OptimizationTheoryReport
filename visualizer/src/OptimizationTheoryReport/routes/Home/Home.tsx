@@ -7,7 +7,7 @@ import Container from 'components/Container/Container';
 const Home: FC = () => {
   return (
     <Layout>
-      <Container>
+      <Container large>
         <BaseVisualizer>
           <h1>Home</h1>{' '}
         </BaseVisualizer>

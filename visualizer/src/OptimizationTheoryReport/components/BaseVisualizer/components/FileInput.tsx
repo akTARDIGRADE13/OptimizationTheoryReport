@@ -1,18 +1,22 @@
-/* eslint-disable react/react-in-jsx-scope */
 import React, { useState } from 'react';
 import styles from './FileInput.module.css';
 
 interface FileInputProps {
-  onFileChange: (files: FileList | null) => void;
+  onFileChange: (files: string | null) => void;
 }
 
 const FileInput: React.FC<FileInputProps> = ({ onFileChange }) => {
   const [fileName, setFileName] = useState<string | null>(null);
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    onFileChange(files);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      onFileChange(e.target?.result as string);
+    };
     setFileName(files?.[0]?.name || null);
+    if (files?.[0]) {
+      reader.readAsText(files[0]);
+    }
   };
 
   return (
@@ -26,7 +30,7 @@ const FileInput: React.FC<FileInputProps> = ({ onFileChange }) => {
         onChange={handleFileChange}
       />
       <label htmlFor="file" className={styles['file-label']}>
-        {fileName ? fileName : 'ファイルを選択'}
+        {fileName ? fileName : '入力ファイルを選択'}
       </label>
     </form>
   );
