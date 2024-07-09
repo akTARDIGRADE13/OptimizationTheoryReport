@@ -43,6 +43,7 @@ const Home: FC = () => {
               <div>There is no grid.</div>
             ) : (
               <SolutionDisplay
+                score={result.value.score}
                 grid={result.value.grid}
                 initialGrid={initialGrid}
                 cargo={result.value.cargo}
