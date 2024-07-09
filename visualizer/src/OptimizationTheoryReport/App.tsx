@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Home from 'routes/Home/Home';
 import NotFound from 'routes/NotFound/NotFound';
-//import { VisualizerInfoProvider } from 'components/BaseVisualizer/context/VisualizerInfoProvider';
+import { VisualizerInfoProvider } from 'components/BaseVisualizer/context/VisualizerInfoProvider';
 import './App.css';
 
 const App: FC = () => {
@@ -36,9 +36,9 @@ const App: FC = () => {
         <Route
           path="/OptimizationTheoryReport/"
           element={
-            //<VisualizerInfoProvider>
-            <Home />
-            //</VisualizerInfoProvider>
+            <VisualizerInfoProvider>
+              <Home />
+            </VisualizerInfoProvider>
           }
         />
         <Route path="*" element={<NotFound />} />
