@@ -24,6 +24,8 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
   const [maxSolution, setMaxSolution] = useState(0);
   const [maxFrame, setMaxFrame] = useState(0);
   const {
+    // inputContent,
+    setInputContent,
     mode,
     setMode,
     currentSolution,
@@ -163,7 +165,9 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
           </div>
         </div>
         <div className={styles['sliders-container']}>
-          <FileInput onFileChange={(file) => setFileContent(file ?? '')} />
+          <FileInput
+            onFileChange={(inputContent) => setInputContent(inputContent ?? '')}
+          />
           <SelectBox
             label="mode"
             options={['normal', 'color']}
