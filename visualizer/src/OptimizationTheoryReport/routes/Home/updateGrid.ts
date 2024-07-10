@@ -46,8 +46,8 @@ export const updateGrid = (
     else if (operation === 'D') k = 2;
     else if (operation === 'U') k = 3;
 
+    score += 1;
     if (k === -1) {
-      score += 1;
       if (operation[0] === '+') {
         const target = parseInt(operation.slice(1), 10);
         if (grid[x][y] === target) {

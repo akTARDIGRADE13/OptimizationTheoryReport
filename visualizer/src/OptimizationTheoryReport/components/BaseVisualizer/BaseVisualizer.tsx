@@ -47,13 +47,19 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
         setCurrentSolution(0);
       } else {
         setFileContent(file);
-        setMaxFrame(file.length);
-        setCurrentFrame(file.length);
-        setMaxSolution(file.length);
-        setCurrentSolution(0);
+        setMaxFrame(file.split('\n')[0].split(/\s/).length);
+        setCurrentFrame(file.split('\n')[0].split(/\s/).length);
+        setMaxSolution(file.split('\n').length - 1);
+        setCurrentSolution(file.split('\n').length - 1);
       }
     },
-    [setFileContent, setMaxFrame, setCurrentFrame],
+    [
+      setFileContent,
+      setMaxFrame,
+      setCurrentFrame,
+      setMaxSolution,
+      setCurrentSolution,
+    ],
   );
 
   // useEffectを使ってfileContentの変更を監視し、textareaに反映
