@@ -21,7 +21,7 @@ const Home: FC = () => {
   // fileContentをパース
   const solutions: string[][] = parseOutput(fileContent);
 
-  console.log(N, K, initialGrid, 24);
+  console.log(N, K, initialGrid, 24, currentFrame, solutions, currentSolution);
 
   // 指定された盤面の状態を求める
   const result: Result<State> = updateGrid(
