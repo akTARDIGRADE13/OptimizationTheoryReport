@@ -34,7 +34,7 @@ const Grid: FC<GridProps> = ({ grid, initialGrid /*, mode, all_flag*/ }) => {
             key={`${i}-${j}`}
             className={`${styles['grid-cell']} ${getCellStyle(cell, initialGrid[i][j])}`}
           >
-            {cell}
+            {Math.abs(cell)}
           </div>
         )),
       )}
