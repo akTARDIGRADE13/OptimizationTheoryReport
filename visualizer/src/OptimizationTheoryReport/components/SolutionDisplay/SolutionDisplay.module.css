@@ -32,3 +32,11 @@
     border: 1px solid #ccc;
     border-radius: 8px;
 }
+
+.final-score-green {
+    color: #39ff14; /* 蛍光色の緑 */
+}
+
+.final-score-red {
+    color: #ff210cf9; /* 赤 */
+}

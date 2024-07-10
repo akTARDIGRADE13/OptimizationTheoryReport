@@ -32,7 +32,7 @@ const Home: FC = () => {
     currentFrame,
   );
 
-  console.log(N, K, initialGrid, 35);
+  console.log(N, K, solutions[currentSolution], 35);
 
   return (
     <Layout>
@@ -43,7 +43,10 @@ const Home: FC = () => {
               <div>There is no grid.</div>
             ) : (
               <SolutionDisplay
+                finalScore={result.value.finalScore}
                 score={result.value.score}
+                rx={result.value.rx}
+                ry={result.value.ry}
                 grid={result.value.grid}
                 initialGrid={initialGrid}
                 cargo={result.value.cargo}

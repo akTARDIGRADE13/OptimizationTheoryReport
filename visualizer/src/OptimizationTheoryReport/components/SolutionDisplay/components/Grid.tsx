@@ -3,13 +3,20 @@ import { FC } from 'react';
 import styles from './Grid.module.css';
 
 interface GridProps {
+  rx: number;
+  ry: number;
   grid: number[][];
   initialGrid: number[][];
   mode: string;
   all_flag: boolean;
 }
 
-const Grid: FC<GridProps> = ({ grid, initialGrid /*, mode, all_flag*/ }) => {
+const Grid: FC<GridProps> = ({
+  rx,
+  ry,
+  grid,
+  initialGrid /*, mode, all_flag*/,
+}) => {
   const getCellStyle = (cell: number, initialCell: number) => {
     if (cell > 0) {
       if (cell === -initialCell) {
@@ -34,7 +41,7 @@ const Grid: FC<GridProps> = ({ grid, initialGrid /*, mode, all_flag*/ }) => {
             key={`${i}-${j}`}
             className={`${styles['grid-cell']} ${getCellStyle(cell, initialGrid[i][j])}`}
           >
-            {Math.abs(cell)}
+            {i === rx && j === ry ? '🤖' : Math.abs(cell)}
           </div>
         )),
       )}
