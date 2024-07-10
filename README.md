@@ -51,7 +51,6 @@ $$
 
 $$
 \begin{align*}
-&Q \\
 &op_1 \ op_2 \ \ldots \ op_Q
 \end{align*}
 $$
