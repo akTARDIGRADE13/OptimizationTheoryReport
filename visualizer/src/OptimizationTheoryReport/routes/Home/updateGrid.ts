@@ -35,7 +35,6 @@ export const updateGrid = (
       value: { finalScore: 0, rx: 0, ry: 0, score: -1, grid: [], cargo: [] },
     };
   }
-  let cargoCount = 0;
   let finalScore = 0;
   let score = 0;
   let x = 0,
@@ -63,10 +62,13 @@ export const updateGrid = (
       },
     };
   }
-  const cargo: number[] = [];
+  // 長さN*N-1/2で値が全て0の配列を作成
+  const cargo: number[] = Array.from({ length: (N * N - 1) / 2 }, () => 0);
+
   const dx: number[] = [0, 0, 1, -1];
   const dy: number[] = [1, -1, 0, 0];
   let turnCount = 1;
+  let cargoCount = 0;
   operations.forEach((operation) => {
     if (operation[0] === '+') {
       cargoCount++;
@@ -78,6 +80,8 @@ export const updateGrid = (
       finalScore += cargoCount + 1;
     }
   });
+
+  cargoCount = 0;
 
   for (const operation of operations.slice(0, turn)) {
     let k = -1;
@@ -92,7 +96,14 @@ export const updateGrid = (
         const target = parseInt(operation.slice(1), 10);
         if (grid[x][y] === target) {
           grid[x][y] = Math.min(initialGrid[x][y], 0);
-          cargo.push(target);
+          if (cargo[target] !== 0) {
+            return {
+              success: false,
+              error: `${turnCount}回目の操作は不正です。荷物${target}を既に持っています。`,
+            };
+          }
+          cargo[target] = 1;
+          cargoCount++;
           if (cargo.length > K) {
             return {
               success: false,
@@ -107,15 +118,16 @@ export const updateGrid = (
         }
       } else if (operation[0] === '-') {
         const target = parseInt(operation.slice(1), 10);
-        if (grid[x][y] === 0) {
-          if (cargo.includes(target)) {
-            grid[x][y] = target;
-          } else {
+        if (grid[x][y] <= 0) {
+          grid[x][y] = target;
+          if (cargo[target] === 0) {
             return {
               success: false,
               error: `${turnCount}回目の操作は不正です。荷物${target}を持っていません。`,
             };
           }
+          cargo[target] = 0;
+          cargoCount--;
         } else {
           return {
             success: false,
