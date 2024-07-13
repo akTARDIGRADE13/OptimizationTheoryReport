@@ -6,6 +6,8 @@ export interface State {
   grid: number[][];
   cargo: number[];
   all_flag?: boolean;
+  horizontalPath?: number[][];
+  verticalPath?: number[][];
 }
 
 export type Result<T> = Success<T> | Failure;
@@ -39,10 +41,26 @@ export const updateGrid = (
   let x = 0,
     y = 0;
   const grid = initialGrid.map((row) => row.slice());
+  const horizontalPath: number[][] = Array.from({ length: N }, () =>
+    Array.from({ length: N - 1 }, () => 0),
+  );
+  const verticalPath: number[][] = Array.from({ length: N - 1 }, () =>
+    Array.from({ length: N }, () => 0),
+  );
+
   if (turn === 0) {
     return {
       success: true,
-      value: { finalScore, rx: x, ry: y, score, grid, cargo: [] },
+      value: {
+        finalScore,
+        rx: x,
+        ry: y,
+        score,
+        grid,
+        cargo: [],
+        horizontalPath,
+        verticalPath,
+      },
     };
   }
   const cargo: number[] = [];
@@ -120,6 +138,11 @@ export const updateGrid = (
           error: `${turnCount}回目の操作は不正です。(${nx}, ${ny})は範囲外です。`,
         };
       }
+      if (k === 0 || k === 1) {
+        horizontalPath[x][Math.min(y, ny)] += cargo.length + 1;
+      } else {
+        verticalPath[Math.min(x, nx)][y] += cargo.length + 1;
+      }
       x = nx;
       y = ny;
     }
@@ -132,6 +155,16 @@ export const updateGrid = (
 
   return {
     success: true,
-    value: { finalScore, rx: x, ry: y, score, grid, cargo, all_flag },
+    value: {
+      finalScore,
+      rx: x,
+      ry: y,
+      score,
+      grid,
+      cargo,
+      all_flag,
+      horizontalPath,
+      verticalPath,
+    },
   };
 };

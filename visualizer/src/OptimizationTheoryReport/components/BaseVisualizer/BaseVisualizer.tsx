@@ -47,10 +47,11 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
         setCurrentSolution(0);
       } else {
         setFileContent(file);
-        setMaxFrame(file.split('\n')[0].split(/\s/).length);
-        setCurrentFrame(file.split('\n')[0].split(/\s/).length);
-        setMaxSolution(file.split('\n').length - 1);
-        setCurrentSolution(file.split('\n').length - 1);
+        const solutions = file.trim().split('\n');
+        setMaxSolution(solutions.length - 1);
+        setCurrentSolution(0);
+        setMaxFrame(solutions[0].split(/\s/).length);
+        setCurrentFrame(0);
       }
     },
     [
@@ -73,11 +74,24 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
   // ソリューション変更処理
   const updateSolution = useCallback(
     (newSolution: number) => {
-      setCurrentSolution(() => {
-        return Math.max(0, Math.min(maxSolution, newSolution));
-      });
+      const updatedSolution = Math.max(0, Math.min(maxSolution, newSolution));
+      setCurrentSolution(updatedSolution);
+      const solution = fileContent.trim().split('\n')[updatedSolution];
+      const solutionFrames = solution.split(/\s/).length;
+      setMaxFrame(solutionFrames);
+      setCurrentFrame(solutionFrames);
+      if (updatedSolution >= maxSolution) {
+        setChangeSolution(false);
+      }
     },
-    [maxSolution, setCurrentSolution],
+    [
+      maxSolution,
+      fileContent,
+      setCurrentSolution,
+      setMaxFrame,
+      currentFrame,
+      setCurrentFrame,
+    ],
   );
 
   // ソリューションの自動再生処理
@@ -102,7 +116,7 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
       setCurrentFrame(() => {
         return Math.max(0, Math.min(maxFrame, newFrame));
       });
-      if (newFrame === maxFrame) {
+      if (newFrame >= maxFrame) {
         setIsPlaying(false);
       }
     },
@@ -114,6 +128,7 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
     let interval: NodeJS.Timeout | null = null;
 
     if (isPlaying) {
+      setChangeSolution(false);
       interval = setInterval(() => {
         updateFrame(currentFrame + 1);
       }, 1000 / speed);
@@ -140,16 +155,16 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
           <Slider
             label="Solution"
             min={0}
-            max={maxFrame}
+            max={maxSolution}
             value={currentSolution}
-            onChange={setCurrentSolution}
+            onChange={updateSolution}
           />
           <Slider
             label="Frame"
             min={0}
             max={maxFrame}
             value={currentFrame}
-            onChange={setCurrentFrame}
+            onChange={updateFrame}
           />
           <Slider
             label="Speed"
@@ -176,7 +191,7 @@ const BaseVisualizer: React.FC<BaseVisualizerProps> = ({
           />
           <SelectBox
             label="mode"
-            options={['normal', 'color']}
+            options={['Grid', 'Path']}
             value={mode}
             onChange={(value) => {
               setMode(value as string);

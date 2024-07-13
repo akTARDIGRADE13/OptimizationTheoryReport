@@ -16,12 +16,12 @@ const Home: FC = () => {
   // inputContentをパース
   const { N, K, initialGrid } = parseInput(inputContent);
 
-  console.log(N, K, initialGrid, 19);
+  //console.log(N, K, initialGrid, 19);
 
   // fileContentをパース
   const solutions: string[][] = parseOutput(fileContent);
 
-  console.log(N, K, initialGrid, 24, currentFrame, solutions, currentSolution);
+  //console.log(N, K, initialGrid, 24, currentFrame, solutions, currentSolution);
 
   // 指定された盤面の状態を求める
   const result: Result<State> = updateGrid(
@@ -32,7 +32,7 @@ const Home: FC = () => {
     currentFrame,
   );
 
-  console.log(N, K, solutions[currentSolution], 35);
+  //console.log(N, K, solutions[currentSolution], 35);
 
   return (
     <Layout>
@@ -51,6 +51,8 @@ const Home: FC = () => {
                 initialGrid={initialGrid}
                 cargo={result.value.cargo}
                 mode={mode}
+                horizontalPath={result.value.horizontalPath || []}
+                verticalPath={result.value.verticalPath || []}
               />
             )
           ) : (

@@ -2,6 +2,7 @@
 import { FC } from 'react';
 import Cargo from './components/Cargo';
 import Grid from './components/Grid';
+import Path from './components/Path';
 import styles from './SolutionDisplay.module.css';
 
 interface SolutionDisplayProps {
@@ -14,6 +15,8 @@ interface SolutionDisplayProps {
   cargo: number[];
   mode: string;
   all_flag?: boolean;
+  horizontalPath: number[][];
+  verticalPath: number[][];
 }
 
 const SolutionDisplay: FC<SolutionDisplayProps> = ({
@@ -26,6 +29,8 @@ const SolutionDisplay: FC<SolutionDisplayProps> = ({
   cargo,
   mode,
   all_flag = false,
+  horizontalPath,
+  verticalPath,
 }) => {
   return (
     <div className={styles.container}>
@@ -41,14 +46,22 @@ const SolutionDisplay: FC<SolutionDisplayProps> = ({
       </div>
       <div className={styles['flex-container']}>
         <Cargo cargo={cargo} />
-        <Grid
-          rx={rx}
-          ry={ry}
-          grid={grid}
-          initialGrid={initialGrid}
-          mode={mode}
-          all_flag={all_flag}
-        />
+        {mode === 'Grid' ? (
+          <Grid
+            rx={rx}
+            ry={ry}
+            grid={grid}
+            initialGrid={initialGrid}
+            all_flag={all_flag}
+          />
+        ) : (
+          <Path
+            rows={grid.length}
+            columns={grid[0].length}
+            horizontalPath={horizontalPath}
+            verticalPath={verticalPath}
+          />
+        )}
       </div>
     </div>
   );
