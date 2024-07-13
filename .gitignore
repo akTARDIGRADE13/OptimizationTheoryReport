@@ -1,5 +1,5 @@
-.vscode/
+# ルートディレクトリとサブディレクトリの .vscode フォルダを無視
+/.vscode/
 
-!solver/.vscode/c_cpp_properties.json
-
+# build ディレクトリを無視
 solver/build/

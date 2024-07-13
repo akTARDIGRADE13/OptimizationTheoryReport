@@ -30,8 +30,9 @@ WSL2で動作確認しています。
 例として`SolverExample`を作成しているので、それを参考にしてください。
 
 1. ./algorithmの下にソルバーのディレクトリを作成する。
-2. `SolverBase`を継承した派生クラスを作成する。
-3. 派生クラスの`Solve`関数を実装する。このとき、引数は`const Problem&`、戻り値は`Solution`とする。
-4. ./src/main.cppをよしなに書き換える。
-5. ./CMakeLists.txtをよしなに書き換える。
-6. ./algorithm/<new_solver>/CMakeLists.txtを作成する。
+2. vscodeで作業している場合は./vscode/c_cpp_properties.jsonにパスを追加する。ワークスペースがどこにあるかによってパスが異なるので、よく確認すること。
+3. `SolverBase`を継承した派生クラスを作成する。
+4. 派生クラスの`Solve`関数を実装する。このとき、引数は`const Problem&`、戻り値は`Solution`とする。
+5. ./src/main.cppをよしなに書き換える。
+6. ./CMakeLists.txtをよしなに書き換える。
+7. ./algorithm/<new_solver>/CMakeLists.txtを作成する。
