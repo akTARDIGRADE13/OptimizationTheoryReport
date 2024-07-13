@@ -79,6 +79,9 @@ Cost validate_solution(const Problem &problem, const Operations &operations) {
             return -1;
         }
     }
+    if(x != 0 || y != 0) {
+        return -1;
+    }
     if (std::any_of(cargo.begin(), cargo.end(), [](int x) { return x != 0; })) {
         return -1;
     }
