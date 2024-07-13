@@ -135,7 +135,7 @@ export const updateGrid = (
         };
       }
     } else {
-      if (cargo.length > K) {
+      if (cargoCount > K) {
         return {
           success: false,
           error: `${turnCount}回目の操作は不正です。積載物が${K}個を超えています。`,
