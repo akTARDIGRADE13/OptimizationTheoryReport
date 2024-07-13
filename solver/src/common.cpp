@@ -84,3 +84,8 @@ Operations move_operation(int i, Coordinate start, Coordinate goal, Coordinate n
     operations.push_back("-" + std::to_string(i));
     return operations;
 }
+
+// 2つの座標のマンハッタン距離を返す関数
+int manhattan_distance(Coordinate a, Coordinate b) {
+    return std::abs(a.first - b.first) + std::abs(a.second - b.second);
+}

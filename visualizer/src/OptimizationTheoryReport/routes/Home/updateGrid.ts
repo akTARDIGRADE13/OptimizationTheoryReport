@@ -161,9 +161,13 @@ export const updateGrid = (
     turnCount++;
   }
 
-  const all_flag = initialGrid.every((row, i) =>
-    row.every((cell, j) => cell >= 0 || -cell === grid[i][j]),
-  );
+  const all_flag =
+    initialGrid.every((row, i) =>
+      row.every((cell, j) => cell >= 0 || -cell === grid[i][j]),
+    ) &&
+    x === 0 &&
+    y === 0 &&
+    cargoCount === 0;
 
   // 積んである荷物の番号を取得
   const cargoList: number[] = cargo.reduce((list: number[], value, index) => {

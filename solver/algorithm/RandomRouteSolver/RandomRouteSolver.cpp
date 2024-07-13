@@ -25,51 +25,38 @@ Solution RandomRouteSolver::solve(const Problem &problem) {
         std::iota(permutation.begin(), permutation.end(), 1);
         rng.randshf(permutation);
 
-        // 順列を操作に変換
-        Operations operations;
+        // コストを求める
+        Cost cost = 0;
         Coordinate current = std::make_pair(0, 0);
         for (int i : permutation) {
-
             // 荷物 i がある座標
-            Coordinate start = std::make_pair(-1, -1);
-            for (int x = 0; x < problem.N && start.first < 0; ++x) {
-                for (int y = 0; y < problem.N && start.first < 0; ++y) {
-                    if (problem.grid[x][y] == i) {
-                        start = std::make_pair(x, y);
-                    }
-                }
-            }
-
+            Coordinate start = problem.start[i];
             // 荷物 i の目的地
-            Coordinate goal = std::make_pair(-1, -1);
-            for (int x = 0; x < problem.N && goal.first < 0; ++x) {
-                for (int y = 0; y < problem.N && goal.first < 0; ++y) {
-                    if (problem.grid[x][y] == -i) {
-                        goal = std::make_pair(x, y);
-                    }
-                }
-            }
+            Coordinate goal = problem.goal[i];
 
-            Operations move = move_operation(i, current, start, goal);
-            operations.insert(operations.end(), move.begin(), move.end());
+            // 移動コストを計算
+            cost += manhattan_distance(current, start);
+            cost++;
+            cost += manhattan_distance(start, goal) * 2;
+            cost++;
             current = goal;
-        }
-
-        std::string operations_str = "";
-        for (const auto &op : operations) {
-            operations_str += op + " ";
-        }
-
-        // この操作列のコストを計算
-        Cost cost = validate_solution(problem, operations);
-        if (cost == -1) {
-            log_message(LogLevel::ERROR, "Invalid solution");
-            assert(false);
         }
 
         // これまでの最良解よりも良ければ追加
         if (solution.costs.empty() || cost < solution.costs.back()) {
             solution.costs.push_back(cost);
+            Operations operations;
+            current = std::make_pair(0, 0);
+            for (int i : permutation) {
+                // 荷物 i がある座標
+                Coordinate start = problem.start[i];
+                // 荷物 i の目的地
+                Coordinate goal = problem.goal[i];
+
+                Operations move = move_operation(i, current, start, goal);
+                operations.insert(operations.end(), move.begin(), move.end());
+                current = goal;
+            }
             solution.multi_operations.push_back(operations);
         }
     }
