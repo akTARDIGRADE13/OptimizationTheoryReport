@@ -118,7 +118,8 @@ export const updateGrid = (
         }
       } else if (operation[0] === '-') {
         const target = parseInt(operation.slice(1), 10);
-        if (grid[x][y] === 0) {
+        if (grid[x][y] <= 0) {
+          grid[x][y] = target;
           if (cargo[target] === 0) {
             return {
               success: false,
