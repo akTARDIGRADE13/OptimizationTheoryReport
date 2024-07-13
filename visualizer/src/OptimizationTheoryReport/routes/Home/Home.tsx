@@ -50,6 +50,7 @@ const Home: FC = () => {
                 grid={result.value.grid}
                 initialGrid={initialGrid}
                 cargo={result.value.cargo}
+                all_flag={result.value.all_flag}
                 mode={mode}
                 horizontalPath={result.value.horizontalPath || []}
                 verticalPath={result.value.verticalPath || []}
