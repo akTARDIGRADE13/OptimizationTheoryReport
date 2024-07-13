@@ -18,7 +18,7 @@ export interface VisualizerInfoContextProps {
 export const VisualizerInfoContext = createContext<VisualizerInfoContextProps>({
   inputContent: '',
   setInputContent: () => {},
-  mode: 'normal',
+  mode: 'Grid',
   setMode: () => {},
   currentSolution: 0,
   setCurrentSolution: () => {},
@@ -32,7 +32,7 @@ export const VisualizerInfoProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [inputContent, setInputContent] = useState<string>('');
-  const [mode, setMode] = useState<string>('normal');
+  const [mode, setMode] = useState<string>('Grid');
   const [currentSolution, setCurrentSolution] = useState<number>(0);
   const [currentFrame, setCurrentFrame] = useState<number>(0);
   const [fileContent, setFileContent] = useState<string>('');

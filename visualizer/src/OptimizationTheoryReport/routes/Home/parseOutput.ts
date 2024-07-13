@@ -1,4 +1,5 @@
 export const parseOutput = (output: string): string[][] => {
+  if (output === '') return [];
   // 解の分割（最後の余分な改行を考慮してトリム）
   const solutionBlocks = output.trim().split('\n');
 

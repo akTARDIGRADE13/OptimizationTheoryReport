@@ -1,0 +1,46 @@
+.grid-container {
+    position: relative;
+}
+
+.path-container {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
+.path-horizontal {
+    position: absolute;
+    height: 2px; /* 水平方向の線の高さ */
+}
+
+.path-vertical {
+    position: absolute;
+    width: 2px; /* 垂直方向の線の幅 */
+}
+
+.grid {
+    display: grid;
+}
+
+.grid-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  /* 他のセルスタイルをここに定義 */
+.fluorescent-green {
+    background-color: #39ff14;
+}
+
+.red {
+    background-color: red;
+}
+
+.gray {
+    background-color: gray;
+}
+
+.blue {
+    background-color: blue;
+}
