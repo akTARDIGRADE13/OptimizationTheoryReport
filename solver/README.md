@@ -4,9 +4,9 @@
 
 WSL2で動作確認しています。
 
-- ubuntu 22.04
-- CMake 3.22.1
-- gcc 11.40
+- `ubuntu 22.04`
+- `CMake 3.22.1`
+- `gcc 11.40`
 
 ## 使い方
 
@@ -29,10 +29,10 @@ WSL2で動作確認しています。
 
 例として`SolverExample`を作成しているので、それを参考にしてください。
 
-1. ./algorithmの下にソルバーのディレクトリを作成する。
-2. vscodeで作業している場合は./vscode/c_cpp_properties.jsonにパスを追加する。ワークスペースがどこにあるかによってパスが異なるので、よく確認すること。
+1. `./algorithm`の下にソルバーのディレクトリを作成する。
+2. vscodeで作業している場合は`./vscode/c_cpp_properties.json`にパスを追加する。ワークスペースがどこかによってパスが異なるので、よく確認すること。
 3. `SolverBase`を継承した派生クラスを作成する。
 4. 派生クラスの`Solve`関数を実装する。このとき、引数は`const Problem&`、戻り値は`Solution`とする。
-5. ./src/main.cppをよしなに書き換える。
-6. ./CMakeLists.txtをよしなに書き換える。
-7. ./algorithm/<new_solver>/CMakeLists.txtを作成する。
+5. `./src/main.cpp`をよしなに書き換える。
+6. `./CMakeLists.txt`をよしなに書き換える。
+7. `./algorithm/<new_solver>/CMakeLists.txt`を作成する。
