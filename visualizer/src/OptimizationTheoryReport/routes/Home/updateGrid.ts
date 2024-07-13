@@ -141,7 +141,7 @@ export const updateGrid = (
           error: `${turnCount}回目の操作は不正です。積載物が${K}個を超えています。`,
         };
       }
-      score += cargo.length;
+      score += cargoCount;
       const nx = x + dx[k];
       const ny = y + dy[k];
       if (nx < 0 || nx >= N || ny < 0 || ny >= N) {
@@ -151,9 +151,9 @@ export const updateGrid = (
         };
       }
       if (k === 0 || k === 1) {
-        horizontalPath[x][Math.min(y, ny)] += cargo.length + 1;
+        horizontalPath[x][Math.min(y, ny)] += cargoCount + 1;
       } else {
-        verticalPath[Math.min(x, nx)][y] += cargo.length + 1;
+        verticalPath[Math.min(x, nx)][y] += cargoCount + 1;
       }
       x = nx;
       y = ny;
@@ -165,6 +165,14 @@ export const updateGrid = (
     row.every((cell, j) => cell >= 0 || -cell === grid[i][j]),
   );
 
+  // 積んである荷物の番号を取得
+  const cargoList: number[] = cargo.reduce((list: number[], value, index) => {
+    if (value === 1) {
+      list.push(index);
+    }
+    return list;
+  }, []);
+
   return {
     success: true,
     value: {
@@ -173,7 +181,7 @@ export const updateGrid = (
       ry: y,
       score,
       grid,
-      cargo,
+      cargo: cargoList,
       all_flag,
       horizontalPath,
       verticalPath,
