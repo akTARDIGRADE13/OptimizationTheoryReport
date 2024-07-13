@@ -104,12 +104,6 @@ export const updateGrid = (
           }
           cargo[target] = 1;
           cargoCount++;
-          if (cargo.length > K) {
-            return {
-              success: false,
-              error: `${turnCount}回目の操作は不正です。積載物が${K}個を超えました。`,
-            };
-          }
         } else {
           return {
             success: false,
@@ -141,6 +135,12 @@ export const updateGrid = (
         };
       }
     } else {
+      if (cargo.length > K) {
+        return {
+          success: false,
+          error: `${turnCount}回目の操作は不正です。積載物が${K}個を超えています。`,
+        };
+      }
       score += cargo.length;
       const nx = x + dx[k];
       const ny = y + dy[k];
