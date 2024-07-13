@@ -63,7 +63,7 @@ export const updateGrid = (
     };
   }
   // 長さN*N-1/2で値が全て0の配列を作成
-  const cargo: number[] = Array.from({ length: (N * N - 1) / 2 }, () => 0);
+  const cargo: number[] = Array.from({ length: (N * N - 1) / 2 + 1 }, () => 0);
 
   const dx: number[] = [0, 0, 1, -1];
   const dy: number[] = [1, -1, 0, 0];
