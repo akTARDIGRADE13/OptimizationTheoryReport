@@ -18,7 +18,8 @@ const Path: FC<PathProps> = ({
   const cellSize = 32; // セルのサイズ (ピクセル)
 
   const getColorIntensity = (cost: number) => {
-    const maxCost = Math.max(...horizontalPath.flat(), ...verticalPath.flat());
+    // const maxCost = Math.max(...horizontalPath.flat(), ...verticalPath.flat());
+    const maxCost = 30;
     const intensity = (cost / maxCost) * 255;
     return `rgb(255, ${255 - intensity}, ${255 - intensity})`;
   };
