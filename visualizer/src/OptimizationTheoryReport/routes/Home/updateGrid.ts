@@ -165,6 +165,14 @@ export const updateGrid = (
     row.every((cell, j) => cell >= 0 || -cell === grid[i][j]),
   );
 
+  // 積んである荷物の番号を取得
+  const cargoList: number[] = cargo.reduce((list: number[], value, index) => {
+    if (value === 1) {
+      list.push(index);
+    }
+    return list;
+  }, []);
+
   return {
     success: true,
     value: {
@@ -173,7 +181,7 @@ export const updateGrid = (
       ry: y,
       score,
       grid,
-      cargo,
+      cargo: cargoList,
       all_flag,
       horizontalPath,
       verticalPath,
