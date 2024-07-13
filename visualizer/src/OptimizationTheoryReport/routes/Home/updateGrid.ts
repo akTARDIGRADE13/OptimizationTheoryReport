@@ -160,13 +160,6 @@ export const updateGrid = (
     turnCount++;
   }
 
-  if (cargoCount !== 0) {
-    return {
-      success: false,
-      error: '最終状態で荷物の積載数が0ではありません。',
-    };
-  }
-
   const all_flag = initialGrid.every((row, i) =>
     row.every((cell, j) => cell >= 0 || -cell === grid[i][j]),
   );
