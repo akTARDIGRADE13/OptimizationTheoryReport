@@ -1,3 +1,4 @@
+#include "RandomRouteSolver.hpp"
 #include "common.hpp"
 #include "problem.hpp"
 #include "solution.hpp"
@@ -7,8 +8,9 @@
 #include <string>
 
 void print_usage() {
-    std::cout << "Usage: DeliveryRobot <solver> <input_file>" << std::endl;
-    std::cout << "Available solvers: solver1" << std::endl;
+    std::cout << "Usage: DeliveryRobot <solver> <input_file_path>" << std::endl;
+    std::cout << "Available solvers: RandomRouteSolver solver_example"
+              << std::endl;
 }
 
 int main(int argc, char *argv[]) {
@@ -30,7 +32,11 @@ int main(int argc, char *argv[]) {
     //     std::cout << std::endl;
     // }
 
-    if (solver_name == "example") {
+    if (solver_name == "RandomRouteSolver") {
+        RandomRouteSolver solver;
+        Solution solution = solver.solve(problem);
+        print_solution(solution);
+    } else if (solver_name == "example") {
         SolverExample solver;
         Solution solution = solver.solve(problem);
         print_solution(solution);

@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/solver/include",
-                "${workspaceFolder}/solver/algorithm/solver_example",
+                "${workspaceFolder}/solver/algorithm/RandomRouteSolver",
+                "${workspaceFolder}/solver/algorithm/solver_example"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
