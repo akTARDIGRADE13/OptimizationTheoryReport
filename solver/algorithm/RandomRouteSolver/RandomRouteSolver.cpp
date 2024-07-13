@@ -41,6 +41,7 @@ Solution RandomRouteSolver::solve(const Problem &problem) {
             cost++;
             current = goal;
         }
+        cost += manhattan_distance(current, std::make_pair(0, 0));
 
         // これまでの最良解よりも良ければ追加
         if (solution.costs.empty() || cost < solution.costs.back()) {
@@ -57,6 +58,8 @@ Solution RandomRouteSolver::solve(const Problem &problem) {
                 operations.insert(operations.end(), move.begin(), move.end());
                 current = goal;
             }
+            Operations move = get_route(current, std::make_pair(0, 0));
+            operations.insert(operations.end(), move.begin(), move.end());
             solution.multi_operations.push_back(operations);
         }
     }
