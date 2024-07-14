@@ -32,7 +32,7 @@ WSL2で動作確認しています。
 例として`SolverExample`を作成しているので、そちらも参考にしてください。
 
 1. `./algorithm`の下にソルバーのディレクトリを作成する。
-2. vscodeで作業している場合は`./vscode/c_cpp_properties.json`にパスを追加する。ワークスペースがどこかによってパスが異なるので、よく確認すること。vscodeを開き直すと反映される。
+2. vscodeで作業している場合は`./vscode/c_cpp_properties.json`にパスを追加する。ワークスペースの場所によって追加するべきパスが異なるので、よく確認すること。vscodeを開き直すと反映される。
 3. `SolverBase`を継承した派生クラスを作成する。
 4. 派生クラスの`Solve`関数を実装する。このとき、引数は`const Problem&`、戻り値は`Solution`とする。
 5. `./src/main.cpp`をよしなに書き換える。
