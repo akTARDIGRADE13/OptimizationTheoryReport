@@ -1,4 +1,5 @@
 #include "RandomRouteSolver.hpp"
+#include "SimulatedAnnealingSolver.hpp"
 #include "common.hpp"
 #include "problem.hpp"
 #include "solution.hpp"
@@ -9,7 +10,8 @@
 
 void print_usage() {
     std::cout << "Usage: DeliveryRobot <solver> <input_file_path>" << std::endl;
-    std::cout << "Available solvers: RandomRouteSolver solver_example"
+    std::cout << "Available solvers: RandomRouteSolver "
+                 "SimulatedAnnealingSolver example"
               << std::endl;
 }
 
@@ -34,6 +36,10 @@ int main(int argc, char *argv[]) {
 
     if (solver_name == "RandomRouteSolver") {
         RandomRouteSolver solver;
+        Solution solution = solver.solve(problem);
+        print_solution(solution);
+    } else if (solver_name == "SimulatedAnnealingSolver") {
+        SimulatedAnnealingSolver solver;
         Solution solution = solver.solve(problem);
         print_solution(solution);
     } else if (solver_name == "example") {

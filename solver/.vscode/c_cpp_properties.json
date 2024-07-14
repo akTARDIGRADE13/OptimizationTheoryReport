@@ -6,6 +6,7 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/solver/include",
                 "${workspaceFolder}/solver/algorithm/RandomRouteSolver",
+                "${workspaceFolder}/solver/algorithm/SimulatedAnnealingSolver",
                 "${workspaceFolder}/solver/algorithm/solver_example"
             ],
             "defines": [],
