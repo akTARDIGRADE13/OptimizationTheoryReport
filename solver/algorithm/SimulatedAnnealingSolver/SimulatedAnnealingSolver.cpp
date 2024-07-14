@@ -131,15 +131,3 @@ Solution SimulatedAnnealingSolver::solve(const Problem &problem) {
     assert(validate_solution(problem, operations) == bestCost);
     return solution;
 }
-
-double SimulatedAnnealingSolver::acceptanceProb(Cost currentCost, Cost newCost,
-                                                double temp) {
-    if (newCost < currentCost)
-        return 1.0;
-    return std::exp((currentCost - newCost) / temp);
-}
-
-double SimulatedAnnealingSolver::updateTemp(double startTemp, double endTemp,
-                                            double elapsed, double duration) {
-    return startTemp + (endTemp - startTemp) * elapsed / duration;
-}
