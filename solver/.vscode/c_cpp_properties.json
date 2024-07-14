@@ -8,6 +8,7 @@
                 "${workspaceFolder}/solver/algorithm/RandomRouteSolver",
                 "${workspaceFolder}/solver/algorithm/SimulatedAnnealingSolver",
                 "${workspaceFolder}/solver/algorithm/SimulatedAnnealingSolver2",
+                "${workspaceFolder}/solver/algorithm/SimulatedAnnealingSolver3",
                 "${workspaceFolder}/solver/algorithm/solver_example"
             ],
             "defines": [],
