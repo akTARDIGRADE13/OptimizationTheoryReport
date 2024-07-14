@@ -2,11 +2,21 @@ cmake_minimum_required(VERSION 3.22)
 project(DeliveryRobot)
 
 # インクルードディレクトリの追加
-include_directories(include)
-include_directories(algorithm/RandomRouteSolver)
-include_directories(algorithm/SimulatedAnnealingSolver)
-include_directories(algorithm/SimulatedAnnealingSolver2)
-include_directories(algorithm/solver_example)
+function(add_include_directories)
+    include_directories(${ARGN})
+endfunction()
+
+add_include_directories(
+    include
+    algorithm/RandomRouteSolver
+    algorithm/SimulatedAnnealingSolver
+    algorithm/SimulatedAnnealingSolver2
+    algorithm/SimulatedAnnealingSolver3
+    algorithm/solver_example
+)
+
+# コンパイルオプションの追加
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 
 # ソースファイルの追加
 add_library(common 
@@ -22,11 +32,27 @@ add_library(common
 )
 
 # サブディレクトリの追加
-add_subdirectory(algorithm/RandomRouteSolver)
-add_subdirectory(algorithm/SimulatedAnnealingSolver)
-add_subdirectory(algorithm/SimulatedAnnealingSolver2)
-add_subdirectory(algorithm/solver_example)
+function(add_algorithm_subdirectories)
+    foreach(subdir IN LISTS ARGN)
+        add_subdirectory(${subdir})
+    endforeach()
+endfunction()
+
+add_algorithm_subdirectories(
+    algorithm/RandomRouteSolver
+    algorithm/SimulatedAnnealingSolver
+    algorithm/SimulatedAnnealingSolver2
+    algorithm/SimulatedAnnealingSolver3
+    algorithm/solver_example
+)
 
 # エグゼクタブルの作成
 add_executable(DeliveryRobot src/main.cpp)
-target_link_libraries(DeliveryRobot common RandomRouteSolver SimulatedAnnealingSolver SimulatedAnnealingSolver2 solver_example)
+target_link_libraries(DeliveryRobot 
+    common 
+    RandomRouteSolver 
+    SimulatedAnnealingSolver 
+    SimulatedAnnealingSolver2 
+    SimulatedAnnealingSolver3 
+    solver_example
+)
