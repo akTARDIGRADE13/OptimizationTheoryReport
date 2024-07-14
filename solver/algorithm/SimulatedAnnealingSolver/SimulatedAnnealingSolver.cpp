@@ -18,7 +18,7 @@ Solution SimulatedAnnealingSolver::solve(const Problem &problem) {
     int M = (problem.N * problem.N - 1) >> 1;
 
     // 初期温度と終了温度
-    double startTemp = 50;
+    double startTemp = 10;
     double endTemp = 0;
 
     // 初期解の生成

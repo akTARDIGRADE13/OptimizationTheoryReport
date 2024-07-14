@@ -14,7 +14,7 @@ Solution SimulatedAnnealingSolver2::solve(const Problem &problem) {
     int M = (problem.N * problem.N - 1) >> 1;
 
     // 初期温度と終了温度
-    double startTemp = 50;
+    double startTemp = 10;
     double endTemp = 0;
 
     // 各荷物について積まれるタイミングと降ろされるタイミングを記録
