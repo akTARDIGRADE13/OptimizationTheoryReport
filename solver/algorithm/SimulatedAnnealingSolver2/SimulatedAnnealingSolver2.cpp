@@ -88,6 +88,7 @@ Solution SimulatedAnnealingSolver2::solve(const Problem &problem) {
     double nowTime = 0.0;
 
     int iter = 0;
+    int accepted = 0;
 
     while (nowTime < totalTime) {
         // 現在の温度
@@ -224,6 +225,7 @@ Solution SimulatedAnnealingSolver2::solve(const Problem &problem) {
             cst.set(r, currentPerm[r] > 0 ? 1 : -1);
             updateDistance(l, currentPerm, problem, bt, M);
             updateDistance(r, currentPerm, problem, bt, M);
+            ++accepted;
             // log_message(LogLevel::DEBUG,
             //         "l: " + std::to_string(l) + ", r: " + std::to_string(r) +
             //             ", cost: " + std::to_string(newCost) +
@@ -239,6 +241,7 @@ Solution SimulatedAnnealingSolver2::solve(const Problem &problem) {
     }
 
     log_message(LogLevel::INFO, "iter: " + std::to_string(iter));
+    log_message(LogLevel::INFO, "accepted: " + std::to_string(accepted));
 
     // 最良解をsolutionに変換
     solution.costs.push_back(bestCost);
