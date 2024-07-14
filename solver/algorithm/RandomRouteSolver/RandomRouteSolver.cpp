@@ -16,6 +16,11 @@ Solution RandomRouteSolver::solve(const Problem &problem) {
     // 荷物の総数
     int M = (problem.N * problem.N - 1) >> 1;
 
+    // ベストスコア
+    Cost best_cost = std::numeric_limits<Cost>::max();
+    // ベストスコアの順列
+    std::vector<int> best_permutation;
+
     // 10秒間乱択を繰り返す
     Timer timer;
     timer.start();
@@ -44,24 +49,46 @@ Solution RandomRouteSolver::solve(const Problem &problem) {
         cost += manhattan_distance(current, std::make_pair(0, 0));
 
         // これまでの最良解よりも良ければ追加
-        if (solution.costs.empty() || cost < solution.costs.back()) {
-            solution.costs.push_back(cost);
-            Operations operations;
-            current = std::make_pair(0, 0);
-            for (int i : permutation) {
-                // 荷物 i がある座標
-                Coordinate start = problem.start[i];
-                // 荷物 i の目的地
-                Coordinate goal = problem.goal[i];
+        // if (solution.costs.empty() || cost < solution.costs.back()) {
+        //     solution.costs.push_back(cost);
+        //     Operations operations;
+        //     current = std::make_pair(0, 0);
+        //     for (int i : permutation) {
+        //         // 荷物 i がある座標
+        //         Coordinate start = problem.start[i];
+        //         // 荷物 i の目的地
+        //         Coordinate goal = problem.goal[i];
 
-                Operations move = move_operation(i, current, start, goal);
-                operations.insert(operations.end(), move.begin(), move.end());
-                current = goal;
-            }
-            Operations move = get_route(current, std::make_pair(0, 0));
-            operations.insert(operations.end(), move.begin(), move.end());
-            solution.multi_operations.push_back(operations);
+        //         Operations move = move_operation(i, current, start, goal);
+        //         operations.insert(operations.end(), move.begin(), move.end());
+        //         current = goal;
+        //     }
+        //     Operations move = get_route(current, std::make_pair(0, 0));
+        //     operations.insert(operations.end(), move.begin(), move.end());
+        //     solution.multi_operations.push_back(operations);
+        // }
+
+        if(cost < best_cost) {
+            best_cost = cost;
+            best_permutation = permutation;
         }
     }
+    solution.costs.push_back(best_cost);
+    Operations operations;
+    Coordinate current = std::make_pair(0, 0);
+    for (int i : best_permutation) {
+        // 荷物 i がある座標
+        Coordinate start = problem.start[i];
+        // 荷物 i の目的地
+        Coordinate goal = problem.goal[i];
+
+        Operations move = move_operation(i, current, start, goal);
+        operations.insert(operations.end(), move.begin(), move.end());
+        current = goal;
+    }
+    Operations move = get_route(current, std::make_pair(0, 0));
+    operations.insert(operations.end(), move.begin(), move.end());
+    solution.multi_operations.push_back(operations);
+    
     return solution;
 }
