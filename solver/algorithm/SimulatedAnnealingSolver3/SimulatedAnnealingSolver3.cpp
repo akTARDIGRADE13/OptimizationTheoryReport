@@ -121,12 +121,15 @@ Solution SimulatedAnnealingSolver3::solve(const Problem &problem) {
             }
             if (!flag)
                 continue;
-
-            cst.set(l, currentPerm[r] > 0 ? 1 : -1);
-            cst.set(r, currentPerm[l] > 0 ? 1 : -1);
+            if (currentPerm[l] * currentPerm[r] < 0) {
+                cst.set(l, currentPerm[r] > 0 ? 1 : -1);
+                cst.set(r, currentPerm[l] > 0 ? 1 : -1);
+            }
             if (!cst.is_valid_cargo(problem.K)) {
-                cst.set(l, currentPerm[l] > 0 ? 1 : -1);
-                cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+                if (currentPerm[l] * currentPerm[r] < 0) {
+                    cst.set(l, currentPerm[l] > 0 ? 1 : -1);
+                    cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+                }
                 continue;
             }
 
@@ -142,8 +145,10 @@ Solution SimulatedAnnealingSolver3::solve(const Problem &problem) {
             Cost newCost = calculateNewCost(l, r, currentPerm, problem, bt, cst,
                                             currentCost);
             std::swap(currentPerm[l], currentPerm[r]);
-            cst.set(l, currentPerm[l] > 0 ? 1 : -1);
-            cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+            if (currentPerm[l] * currentPerm[r] < 0) {
+                cst.set(l, currentPerm[l] > 0 ? 1 : -1);
+                cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+            }
             updateDistance(l, currentPerm, problem, bt, M);
             updateDistance(r, currentPerm, problem, bt, M);
             newCost = calculateCostAfterSwapBack(l, r, currentPerm, problem, bt,
@@ -162,8 +167,10 @@ Solution SimulatedAnnealingSolver3::solve(const Problem &problem) {
                     startTime[currentPerm[r]] = l;
                 }
                 std::swap(currentPerm[l], currentPerm[r]);
-                cst.set(l, currentPerm[l] > 0 ? 1 : -1);
-                cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+                if (currentPerm[l] * currentPerm[r] < 0) {
+                    cst.set(l, currentPerm[l] > 0 ? 1 : -1);
+                    cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+                }
                 updateDistance(l, currentPerm, problem, bt, M);
                 updateDistance(r, currentPerm, problem, bt, M);
                 ++accepted;
@@ -207,10 +214,14 @@ Solution SimulatedAnnealingSolver3::solve(const Problem &problem) {
 
             std::swap(currentPerm[startTime[l]], currentPerm[startTime[r]]);
             std::swap(currentPerm[goalTime[l]], currentPerm[goalTime[r]]);
-            cst.set(startTime[l], currentPerm[startTime[l]] > 0 ? 1 : -1);
-            cst.set(startTime[r], currentPerm[startTime[r]] > 0 ? 1 : -1);
-            cst.set(goalTime[l], currentPerm[goalTime[l]] > 0 ? 1 : -1);
-            cst.set(goalTime[r], currentPerm[goalTime[r]] > 0 ? 1 : -1);
+            if (currentPerm[startTime[l]] * currentPerm[startTime[r]] < 0) {
+                cst.set(startTime[l], currentPerm[startTime[l]] > 0 ? 1 : -1);
+                cst.set(startTime[r], currentPerm[startTime[r]] > 0 ? 1 : -1);
+            }
+            if (currentPerm[goalTime[l]] * currentPerm[goalTime[r]] < 0) {
+                cst.set(goalTime[l], currentPerm[goalTime[l]] > 0 ? 1 : -1);
+                cst.set(goalTime[r], currentPerm[goalTime[r]] > 0 ? 1 : -1);
+            }
             updateDistance(startTime[l], currentPerm, problem, bt, M);
             updateDistance(startTime[r], currentPerm, problem, bt, M);
             updateDistance(goalTime[l], currentPerm, problem, bt, M);
@@ -232,10 +243,16 @@ Solution SimulatedAnnealingSolver3::solve(const Problem &problem) {
             } else {
                 std::swap(currentPerm[startTime[l]], currentPerm[startTime[r]]);
                 std::swap(currentPerm[goalTime[l]], currentPerm[goalTime[r]]);
-                cst.set(startTime[l], currentPerm[startTime[l]] > 0 ? 1 : -1);
-                cst.set(startTime[r], currentPerm[startTime[r]] > 0 ? 1 : -1);
-                cst.set(goalTime[l], currentPerm[goalTime[l]] > 0 ? 1 : -1);
-                cst.set(goalTime[r], currentPerm[goalTime[r]] > 0 ? 1 : -1);
+                if (currentPerm[startTime[l]] * currentPerm[startTime[r]] < 0) {
+                    cst.set(startTime[l],
+                            currentPerm[startTime[l]] > 0 ? 1 : -1);
+                    cst.set(startTime[r],
+                            currentPerm[startTime[r]] > 0 ? 1 : -1);
+                }
+                if (currentPerm[goalTime[l]] * currentPerm[goalTime[r]] < 0) {
+                    cst.set(goalTime[l], currentPerm[goalTime[l]] > 0 ? 1 : -1);
+                    cst.set(goalTime[r], currentPerm[goalTime[r]] > 0 ? 1 : -1);
+                }
                 updateDistance(startTime[l], currentPerm, problem, bt, M);
                 updateDistance(startTime[r], currentPerm, problem, bt, M);
                 updateDistance(goalTime[l], currentPerm, problem, bt, M);

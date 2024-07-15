@@ -121,11 +121,15 @@ Solution SimulatedAnnealingSolver2::solve(const Problem &problem) {
 
         ++iter;
 
-        cst.set(l, currentPerm[r] > 0 ? 1 : -1);
-        cst.set(r, currentPerm[l] > 0 ? 1 : -1);
+        if (currentPerm[l] * currentPerm[r] < 0) {
+            cst.set(l, currentPerm[r] > 0 ? 1 : -1);
+            cst.set(r, currentPerm[l] > 0 ? 1 : -1);
+        }
         if (!cst.is_valid_cargo(problem.K)) {
-            cst.set(l, currentPerm[l] > 0 ? 1 : -1);
-            cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+            if (currentPerm[l] * currentPerm[r] < 0) {
+                cst.set(l, currentPerm[l] > 0 ? 1 : -1);
+                cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+            }
             continue;
         }
 
@@ -187,8 +191,10 @@ Solution SimulatedAnnealingSolver2::solve(const Problem &problem) {
             newCost += (cargo + 1) * bt.sum(r + 1, r + 2);
         }
         std::swap(currentPerm[l], currentPerm[r]);
-        cst.set(l, currentPerm[l] > 0 ? 1 : -1);
-        cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+        if (currentPerm[l] * currentPerm[r] < 0) {
+            cst.set(l, currentPerm[l] > 0 ? 1 : -1);
+            cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+        }
         updateDistance(l, currentPerm, problem, bt, M);
         updateDistance(r, currentPerm, problem, bt, M);
         {
@@ -221,8 +227,10 @@ Solution SimulatedAnnealingSolver2::solve(const Problem &problem) {
                 startTime[currentPerm[r]] = l;
             }
             std::swap(currentPerm[l], currentPerm[r]);
-            cst.set(l, currentPerm[l] > 0 ? 1 : -1);
-            cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+            if (currentPerm[l] * currentPerm[r] < 0) {
+                cst.set(l, currentPerm[l] > 0 ? 1 : -1);
+                cst.set(r, currentPerm[r] > 0 ? 1 : -1);
+            }
             updateDistance(l, currentPerm, problem, bt, M);
             updateDistance(r, currentPerm, problem, bt, M);
             ++accepted;
