@@ -121,12 +121,12 @@ Solution SimulatedAnnealingSolver3::solve(const Problem &problem) {
             }
             if (!flag)
                 continue;
-            if (currentPerm[l] != currentPerm[r]) {
+            if (currentPerm[l] * currentPerm[r] < 0) {
                 cst.set(l, currentPerm[r] > 0 ? 1 : -1);
                 cst.set(r, currentPerm[l] > 0 ? 1 : -1);
             }
             if (!cst.is_valid_cargo(problem.K)) {
-                if (currentPerm[l] != currentPerm[r]) {
+                if (currentPerm[l] * currentPerm[r] < 0) {
                     cst.set(l, currentPerm[l] > 0 ? 1 : -1);
                     cst.set(r, currentPerm[r] > 0 ? 1 : -1);
                 }
@@ -145,7 +145,7 @@ Solution SimulatedAnnealingSolver3::solve(const Problem &problem) {
             Cost newCost = calculateNewCost(l, r, currentPerm, problem, bt, cst,
                                             currentCost);
             std::swap(currentPerm[l], currentPerm[r]);
-            if (currentPerm[l] != currentPerm[r]) {
+            if (currentPerm[l] * currentPerm[r] < 0) {
                 cst.set(l, currentPerm[l] > 0 ? 1 : -1);
                 cst.set(r, currentPerm[r] > 0 ? 1 : -1);
             }
@@ -167,7 +167,7 @@ Solution SimulatedAnnealingSolver3::solve(const Problem &problem) {
                     startTime[currentPerm[r]] = l;
                 }
                 std::swap(currentPerm[l], currentPerm[r]);
-                if (currentPerm[l] != currentPerm[r]) {
+                if (currentPerm[l] * currentPerm[r] < 0) {
                     cst.set(l, currentPerm[l] > 0 ? 1 : -1);
                     cst.set(r, currentPerm[r] > 0 ? 1 : -1);
                 }
@@ -214,11 +214,11 @@ Solution SimulatedAnnealingSolver3::solve(const Problem &problem) {
 
             std::swap(currentPerm[startTime[l]], currentPerm[startTime[r]]);
             std::swap(currentPerm[goalTime[l]], currentPerm[goalTime[r]]);
-            if (currentPerm[startTime[l]] != currentPerm[startTime[r]]) {
+            if (currentPerm[startTime[l]] * currentPerm[startTime[r]] < 0) {
                 cst.set(startTime[l], currentPerm[startTime[l]] > 0 ? 1 : -1);
                 cst.set(startTime[r], currentPerm[startTime[r]] > 0 ? 1 : -1);
             }
-            if (currentPerm[goalTime[l]] != currentPerm[goalTime[r]]) {
+            if (currentPerm[goalTime[l]] * currentPerm[goalTime[r]] < 0) {
                 cst.set(goalTime[l], currentPerm[goalTime[l]] > 0 ? 1 : -1);
                 cst.set(goalTime[r], currentPerm[goalTime[r]] > 0 ? 1 : -1);
             }
@@ -243,13 +243,13 @@ Solution SimulatedAnnealingSolver3::solve(const Problem &problem) {
             } else {
                 std::swap(currentPerm[startTime[l]], currentPerm[startTime[r]]);
                 std::swap(currentPerm[goalTime[l]], currentPerm[goalTime[r]]);
-                if (currentPerm[startTime[l]] != currentPerm[startTime[r]]) {
+                if (currentPerm[startTime[l]] * currentPerm[startTime[r]] < 0) {
                     cst.set(startTime[l],
                             currentPerm[startTime[l]] > 0 ? 1 : -1);
                     cst.set(startTime[r],
                             currentPerm[startTime[r]] > 0 ? 1 : -1);
                 }
-                if (currentPerm[goalTime[l]] != currentPerm[goalTime[r]]) {
+                if (currentPerm[goalTime[l]] * currentPerm[goalTime[r]] < 0) {
                     cst.set(goalTime[l], currentPerm[goalTime[l]] > 0 ? 1 : -1);
                     cst.set(goalTime[r], currentPerm[goalTime[r]] > 0 ? 1 : -1);
                 }
