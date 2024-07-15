@@ -12,6 +12,7 @@ add_include_directories(
     algorithm/SimulatedAnnealingSolver
     algorithm/SimulatedAnnealingSolver2
     algorithm/SimulatedAnnealingSolver3
+    algorithm/SimulatedAnnealingSolver4
     algorithm/solver_example
 )
 
@@ -29,6 +30,7 @@ add_library(common
     src/CumulativeSumMaxSegmentTree.cpp
     src/SA_base.cpp
     src/BIT.cpp
+    src/StarrySkyTree.cpp
 )
 
 # サブディレクトリの追加
@@ -43,6 +45,7 @@ add_algorithm_subdirectories(
     algorithm/SimulatedAnnealingSolver
     algorithm/SimulatedAnnealingSolver2
     algorithm/SimulatedAnnealingSolver3
+    algorithm/SimulatedAnnealingSolver4
     algorithm/solver_example
 )
 
@@ -54,5 +57,6 @@ target_link_libraries(DeliveryRobot
     SimulatedAnnealingSolver 
     SimulatedAnnealingSolver2 
     SimulatedAnnealingSolver3 
+    SimulatedAnnealingSolver4
     solver_example
 )
