@@ -1,0 +1,5 @@
+# SimulatedAnnealingSolver5のアルゴリズム
+
+やっていることはほぼSA4と一緒。
+
+2点swapのときにlとrの差がある程度小さくなるようにした。
