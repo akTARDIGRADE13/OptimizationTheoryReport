@@ -44,6 +44,9 @@ Solution SimulatedAnnealingSolver::solve(const Problem &problem) {
     Cost bestCost = currentCost;
     std::vector<int> bestPerm = currentPerm;
 
+    int iter = 0;
+    int accept = 0;
+
     // 焼きなまし法
     Timer timer;
     timer.start();
@@ -58,6 +61,8 @@ Solution SimulatedAnnealingSolver::solve(const Problem &problem) {
         int r = rng.randint(0, M);
         if (l > r)
             std::swap(l, r);
+        
+        ++iter;
 
         // スコア計算（差分計算）
         Cost newCost = currentCost;
@@ -96,6 +101,7 @@ Solution SimulatedAnnealingSolver::solve(const Problem &problem) {
         // 遷移
         if (acceptanceProb(currentCost, newCost, temp) > rng.rnd()) {
             currentCost = newCost;
+            ++accept;
         } else {
             std::swap(currentPerm[l], currentPerm[r]);
         }
@@ -109,6 +115,8 @@ Solution SimulatedAnnealingSolver::solve(const Problem &problem) {
         // 時間の更新
         nowTime = timer.getElapsedMilliseconds();
     }
+
+    log_message(LogLevel::INFO, "iter: " + std::to_string(iter) + " accept: " + std::to_string(accept));
 
     // 最良解を解として返す
     solution.costs.push_back(bestCost);
