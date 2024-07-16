@@ -102,9 +102,11 @@ Solution SimulatedAnnealingSolver5::solve(const Problem &problem) {
 
             // 2点swap
             int DIFF = 5;
-            int l = rng.randint(0, (M << 1) - DIFF), r = rng.randint(l + 1, std::min(M << 1, l + DIFF + 1));
+            int l = rng.randint(0, (M << 1) - DIFF),
+                r = rng.randint(l + 1, std::min(M << 1, l + DIFF + 1));
             while (l == r || currentPerm[l] == -currentPerm[r]) {
-                l = rng.randint(0, (M << 1) - DIFF), r = rng.randint(l + 1, std::min(M << 1, l + DIFF + 1));
+                l = rng.randint(0, (M << 1) - DIFF),
+                r = rng.randint(l + 1, std::min(M << 1, l + DIFF + 1));
             }
             bool flag = true;
             if (currentPerm[l] > 0) {
