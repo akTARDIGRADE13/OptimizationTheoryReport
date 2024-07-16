@@ -14,6 +14,7 @@ add_include_directories(
     algorithm/SimulatedAnnealingSolver3
     algorithm/SimulatedAnnealingSolver4
     algorithm/SimulatedAnnealingSolver5
+    algorithm/SimulatedAnnealingSolver6
     algorithm/solver_example
 )
 
@@ -48,6 +49,7 @@ add_algorithm_subdirectories(
     algorithm/SimulatedAnnealingSolver3
     algorithm/SimulatedAnnealingSolver4
     algorithm/SimulatedAnnealingSolver5
+    algorithm/SimulatedAnnealingSolver6
     algorithm/solver_example
 )
 
@@ -61,5 +63,6 @@ target_link_libraries(DeliveryRobot
     SimulatedAnnealingSolver3 
     SimulatedAnnealingSolver4
     SimulatedAnnealingSolver5
+    SimulatedAnnealingSolver6
     solver_example
 )
