@@ -19,8 +19,8 @@ const Path: FC<PathProps> = ({
 
   const getColorIntensity = (cost: number) => {
     // const maxCost = Math.max(...horizontalPath.flat(), ...verticalPath.flat());
-    const maxCost = 20;
-    const intensity = Math.min((cost + 5) / maxCost, 1) * 255;
+    const maxCost = 30;
+    const intensity = Math.min(cost / maxCost, 1) * 255;
     return `rgb(255, ${255 - intensity}, ${255 - intensity})`;
   };
 
