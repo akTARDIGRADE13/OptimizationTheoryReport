@@ -10,6 +10,7 @@
                 "${workspaceFolder}/solver/algorithm/SimulatedAnnealingSolver2",
                 "${workspaceFolder}/solver/algorithm/SimulatedAnnealingSolver3",
                 "${workspaceFolder}/solver/algorithm/SimulatedAnnealingSolver4",
+                "${workspaceFolder}/solver/algorithm/SimulatedAnnealingSolver5",
                 "${workspaceFolder}/solver/algorithm/solver_example"
             ],
             "defines": [],

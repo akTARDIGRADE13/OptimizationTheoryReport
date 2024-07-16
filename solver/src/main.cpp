@@ -3,6 +3,7 @@
 #include "SimulatedAnnealingSolver2.hpp"
 #include "SimulatedAnnealingSolver3.hpp"
 #include "SimulatedAnnealingSolver4.hpp"
+#include "SimulatedAnnealingSolver5.hpp"
 #include "common.hpp"
 #include "problem.hpp"
 #include "solution.hpp"
@@ -13,7 +14,7 @@
 
 void print_usage() {
     std::cout << "Usage: DeliveryRobot <solver> <input_file_path>" << std::endl;
-    std::cout << "Available solvers: RR SA SA2 SA3 SA4 example" << std::endl;
+    std::cout << "Available solvers: RR SA SA2 SA3 SA4 SA5 example" << std::endl;
 }
 
 int main(int argc, char *argv[]) {
@@ -83,7 +84,12 @@ int main(int argc, char *argv[]) {
         SimulatedAnnealingSolver4 solver;
         Solution solution = solver.solve(problem);
         print_solution(solution);
-    } else if (solver_name == "example") {
+    } else if(solver_name == "SA5") {
+        SimulatedAnnealingSolver5 solver;
+        Solution solution = solver.solve(problem);
+        print_solution(solution);
+
+    }else if (solver_name == "example") {
         SolverExample solver;
         Solution solution = solver.solve(problem);
         print_solution(solution);
