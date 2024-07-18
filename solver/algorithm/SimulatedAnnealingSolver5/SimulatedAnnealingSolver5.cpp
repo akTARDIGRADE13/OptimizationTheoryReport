@@ -84,7 +84,7 @@ Solution SimulatedAnnealingSolver5::solve(const Problem &problem) {
     // 焼きなまし法
     Timer timer;
     timer.start();
-    double totalTime = 600000;
+    double totalTime = 10000;
     double nowTime = 0.0;
 
     int iter = 0;
